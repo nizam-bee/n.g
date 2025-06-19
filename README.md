@@ -1,25 +1,25 @@
-ngpt-chat/
-├── pages/
-│   ├── api/
-│   │   ├── auth/
-│   │   │   ├── login.js
-│   │   │   └── register.js
-│   │   └── chat.js
-│   ├── _app.js
-│   ├── index.js
-│   ├── chat.js
-│   ├── login.js
-│   └── register.js
-├── components/
-│   ├── ChatMessage.js
-│   ├── ChatInput.js
-│   ├── Sidebar.js
-│   └── Header.js
-├── context/
-│   ├── AuthContext.js
-│   └── ChatContext.js
-├── styles/
-│   └── globals.css
-├── .env.local
-├── next.config.js
-└── package.json
+/ngpt
+  /pages
+    /api
+      /auth
+        login.js
+        register.js
+      chat.js
+    _app.js
+    index.js
+    chat.js
+    login.js
+    register.js
+  /components
+    ChatMessage.js
+    ChatInput.js
+    Sidebar.js
+    Header.js
+  /context
+    AuthContext.js
+    ChatContext.js
+  /styles
+    globals.css
+  .env.local
+  package.json
+  next.config.js
