@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n.ai.in - The AI-Powered Search Engine</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            animation: fadeIn 1.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo-icon {
+            font-size: 4rem;
+            margin-right: 15px;
+            color: #00d2ff;
+            text-shadow: 0 0 20px rgba(0, 210, 255, 0.7);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .logo-text {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            color: #e0e0e0;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto 50px;
+            position: relative;
+        }
+        
+        .search-box {
+            display: flex;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border-radius: 50px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(0, 210, 255, 0.3);
+        }
+        
+        .search-box:focus-within {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            border-color: rgba(0, 210, 255, 0.6);
+        }
+        
+        #search-input {
+            flex: 1;
+            padding: 20px 30px;
+            font-size: 1.2rem;
+            border: none;
+            outline: none;
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        #search-btn {
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            color: white;
+            border: none;
+            padding: 0 45px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        #search-btn:hover {
+            background: linear-gradient(90deg, #00c2ee, #2a6bc4);
+            padding: 0 50px;
+        }
+        
+        .search-tips {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .tip {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .tip:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .ai-features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            width: 280px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #00d2ff;
+        }
+        
+        .feature-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .feature-desc {
+            color: #e0e0e0;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .results-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+        
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .result-count {
+            font-size: 1.1rem;
+            color: #00d2ff;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .result-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            color: #333;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border-left: 4px solid #3a7bd5;
+        }
+        
+        .result-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .result-title {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: #1a2a6c;
+            display: flex;
+            align-items: center;
+        }
+        
+        .result-title i {
+            margin-right: 10px;
+            color: #3a7bd5;
+        }
+        
+        .result-snippet {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        
+        .result-url {
+            color: #3a7bd5;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+        
+        .result-url i {
+            margin-right: 8px;
+        }
+        
+        .ai-badge {
+            display: inline-block;
+            background: rgba(0, 210, 255, 0.1);
+            color: #00d2ff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            border: 1px solid rgba(0, 210, 255, 0.3);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.3rem;
+            grid-column: 1 / -1;
+        }
+        
+        .loading i {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #00d2ff;
+            animation: spin 2s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .comparison {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .comparison-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .comparison-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            color: #333;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .comparison-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .google-icon {
+            color: #4285F4;
+            font-size: 2.5rem;
+            margin-right: 15px;
+        }
+        
+        .nai-icon {
+            color: #00d2ff;
+            font-size: 2.5rem;
+            margin-right: 15px;
+        }
+        
+        .comparison-header h3 {
+            font-size: 1.8rem;
+        }
+        
+        .advantage {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .advantage i {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            min-width: 30px;
+        }
+        
+        .google-advantage i {
+            color: #EA4335;
+        }
+        
+        .nai-advantage i {
+            color: #00d2ff;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .logo-text {
+                font-size: 2.5rem;
+            }
+            
+            .logo-icon {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            #search-input {
+                padding: 15px 20px;
+                font-size: 1rem;
+            }
+            
+            #search-btn {
+                padding: 0 30px;
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .ai-features {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-ai"></i>
+                </div>
+                <div class="logo-text">n.ai.in</div>
+            </div>
+            <p class="tagline">The world's most advanced AI-powered search engine. Discover, learn, and explore with intelligent results tailored just for you.</p>
+            
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Ask anything about AI, technology, or the future..." autocomplete="off" autofocus>
+                    <button id="search-btn">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+                
+                <div class="search-tips">
+                    <div class="tip">Artificial Intelligence</div>
+                    <div class="tip">Machine Learning</div>
+                    <div class="tip">Neural Networks</div>
+                    <div class="tip">Deep Learning</div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="ai-features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3 class="feature-title">Contextual Understanding</h3>
+                <p class="feature-desc">n.ai.in understands the context of your queries, not just keywords. It interprets meaning like a human would.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3 class="feature-title">Predictive Intelligence</h3>
+                <p class="feature-desc">Our AI anticipates your needs, offering solutions before you even finish your question.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h3 class="feature-title">Real-time Analysis</h3>
+                <p class="feature-desc">Processes and analyzes information in real-time, delivering insights as events unfold.</p>
+            </div>
+        </div>
+        
+        <div class="comparison">
+            <h2 class="comparison-title">Why n.ai.in is Greater Than Google</h2>
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <div class="comparison-header">
+                        <i class="fab fa-google google-icon"></i>
+                        <h3>Google Search</h3>
+                    </div>
+                    <div class="advantage google-advantage">
+                        <i class="fas fa-times-circle"></i>
+                        <div>
+                            <h4>Keyword Matching</h4>
+                            <p>Returns results based on keyword matching without deep understanding</p>
+                        </div>
+                    </div>
+                    <div class="advantage google-advantage">
+                        <i class="fas fa-times-circle"></i>
+                        <div>
+                            <h4>Static Results</h4>
+                            <p>Provides the same results to everyone for the same query</p>
+                        </div>
+                    </div>
+                    <div class="advantage google-advantage">
+                        <i class="fas fa-times-circle"></i>
+                        <div>
+                            <h4>Limited Context</h4>
+                            <p>Cannot understand complex, multi-part questions effectively</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="comparison-card">
+                    <div class="comparison-header">
+                        <i class="fas fa-ai nai-icon"></i>
+                        <h3>n.ai.in</h3>
+                    </div>
+                    <div class="advantage nai-advantage">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h4>Contextual Intelligence</h4>
+                            <p>Understands the meaning and context behind your queries</p>
+                        </div>
+                    </div>
+                    <div class="advantage nai-advantage">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h4>Personalized Results</h4>
+                            <p>Tailors results based on your interests, preferences, and history</p>
+                        </div>
+                    </div>
+                    <div class="advantage nai-advantage">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h4>Conversational AI</h4>
+                            <p>Engages in natural conversations to clarify and refine results</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <main>
+            <div class="results-container" id="results-container">
+                <div class="results-header">
+                    <h2>Search Results</h2>
+                    <div class="result-count">About 5,340,000 results (0.18 seconds)</div>
+                </div>
+                
+                <div class="results-grid" id="results-grid">
+                    <!-- Results will be populated here -->
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>n.ai.in AI Search Engine &copy; 2023 | The Future of Search is Here</p>
+            <p>Deployed on Vercel | This is a demonstration of next-generation search technology</p>
+        </footer>
+    </div>
+    
+    <script>
+        // DOM elements
+        const searchInput = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-btn');
+        const tips = document.querySelectorAll('.tip');
+        const resultsContainer = document.getElementById('results-container');
+        const resultsGrid = document.getElementById('results-grid');
+        
+        // AI Knowledge Base - Real AI-related content
+        const aiKnowledgeBase = [
+            {
+                title: "Understanding Artificial Intelligence",
+                snippet: "Artificial Intelligence (AI) refers to the simulation of human intelligence in machines programmed to think like humans and mimic their actions. The term may also be applied to any machine that exhibits traits associated with a human mind such as learning and problem-solving.",
+                url: "https://n.ai.in/understanding-ai"
+            },
+            {
+                title: "Machine Learning Fundamentals",
+                snippet: "Machine learning is a subset of AI that enables systems to learn and improve from experience without being explicitly programmed. It focuses on developing computer programs that can access data and use it to learn for themselves.",
+                url: "https://n.ai.in/machine-learning"
+            },
+            {
+                title: "Deep Learning and Neural Networks",
+                snippet: "Deep learning is a machine learning technique that teaches computers to do what comes naturally to humans. Inspired by the human brain, deep learning models are built using neural networks with multiple layers (deep neural networks).",
+                url: "https://n.ai.in/deep-learning"
+            },
+            {
+                title: "Natural Language Processing",
+                snippet: "NLP is a branch of AI that helps computers u
